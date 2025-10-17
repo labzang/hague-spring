@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -170,7 +171,7 @@
                 padding: 2rem;
                 margin: 1rem;
             }
-            
+
             .back-link {
                 position: relative;
                 top: auto;
@@ -181,6 +182,7 @@
         }
     </style>
 </head>
+
 <body>
     <a href="/" class="back-link">
         ← 홈으로 돌아가기
@@ -195,7 +197,7 @@
         <form action="/auth/login" method="GET">
             <div class="form-group">
                 <label for="email">이메일</label>
-                <input type="text" id="email" name="email" placeholder="이메일을 입력하세요" value="hont@test.com" >
+                <input type="text" id="email" name="email" placeholder="이메일을 입력하세요" value="hont@test.com">
             </div>
 
             <div class="form-group">
@@ -221,9 +223,16 @@
             </button>
         </div>
 
+
+        <div th:if="${messenger != null}" th:object="${messenger}">
+            <p>code: <span th:text="*{code}">CODE</span></p>
+            <p>message: <span th:text="*{message}">MESSAGE</span></p>
+        </div>
+
         <div class="signup-link">
             아직 계정이 없으신가요? <a href="/auth/register">회원가입</a>
         </div>
     </div>
 </body>
+
 </html>

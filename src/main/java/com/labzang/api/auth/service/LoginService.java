@@ -24,8 +24,8 @@ public class LoginService {
 
         if (loginVO.getEmail().equals(loginDTO.getEmail()) &&
                 loginVO.getPassword().equals(loginDTO.getPassword())) {
-                code = 0;
-                message = "로그인 성공";
+            code = 0;
+            message = "로그인 성공";
         } else if (loginVO.getEmail().equals(loginDTO.getEmail()) &&
                 !loginVO.getPassword().equals(loginDTO.getPassword())) {
             code = 2;

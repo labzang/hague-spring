@@ -2,11 +2,10 @@ package com.labzang.api.auth.domain;
 
 public class LoginDTO {
 
-    private String email;
-    private String password;
+    
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public void setEmail(String email) {
@@ -20,5 +19,9 @@ public class LoginDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+    private String email;
+    private String password;
     
 }
