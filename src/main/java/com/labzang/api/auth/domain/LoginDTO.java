@@ -1,7 +1,8 @@
 package com.labzang.api.auth.domain;
 
 public class LoginDTO {
-
+    private String email;
+    private String password;
     
 
     public String getEmail() {
@@ -21,7 +22,6 @@ public class LoginDTO {
     }
 
 
-    private String email;
-    private String password;
+
     
 }
