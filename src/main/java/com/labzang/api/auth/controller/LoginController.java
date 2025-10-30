@@ -20,8 +20,8 @@ public class LoginController {
     }
     
     @GetMapping("/auth/login")
-    public String login(@RequestParam String email, 
-    @RequestParam String password, Model model) {
+    public String login(@RequestParam(name="email") String email, 
+    @RequestParam(name="password") String password, Model model) {
         System.out.println("컨트롤러로 들어옴");
         System.out.println("화면에서 컨트롤러로 전달된 이메일 : " + email);
         System.out.println("화면에서 컨트롤러로 전달된 비밀번호 : " + password);

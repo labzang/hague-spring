@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Getter               // getter, setter, toString, equals, hashCode 자동 생성
 @NoArgsConstructor  // 기본 생성자 자동 생성
 @AllArgsConstructor
-public class UserVo {
+public class UserVO {
 
     private String userId;
     private String survivalStatus;

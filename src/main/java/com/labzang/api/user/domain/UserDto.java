@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data               // getter, setter, toString, equals, hashCode 자동 생성
 @NoArgsConstructor  // 기본 생성자 자동 생성
 @AllArgsConstructor
-public class UserDto {
+public class UserDTO extends Object {
 
     private String userId;
     private String survived;

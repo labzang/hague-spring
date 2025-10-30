@@ -11,22 +11,33 @@ import org.apache.commons.csv.CSVRecord;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.labzang.api.user.service.UserService;
 import com.labzang.api.common.domain.Messenger;
-import com.labzang.api.user.domain.UserDto;
+import com.labzang.api.user.domain.UserDTO;
 import lombok.RequiredArgsConstructor;
-
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/register")
-    public String printFirstFivePassengers(Model model) {
+    @PostMapping("")
+    public String save(Model model) {
+
+        return "";
+    }
+
+    @PostMapping("/all")
+    public String saveAll(Model model) {
+
         try {
             // CSV 파일 경로
             String csvFilePath = "src/main/resources/static/csv/train.csv";
@@ -35,7 +46,6 @@ public class UserController {
             FileReader reader = new FileReader(csvFilePath);
             CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader());
 
-            List<UserDto> users = new ArrayList<>();
             int count = 0;
 
             // 처음 5명의 데이터만 읽기
@@ -43,7 +53,7 @@ public class UserController {
                 if (count >= 5)
                     break;
 
-                UserDto user = new UserDto();
+                UserDTO user = new UserDTO();
                 user.setUserId(record.get("PassengerId"));
                 user.setSurvived(record.get("Survived"));
                 user.setPclass(record.get("Pclass"));
@@ -70,13 +80,36 @@ public class UserController {
             model.addAttribute("users", users);
             return "user/list";
 
-
         } catch (IOException e) {
             Messenger messenger = new Messenger();
             messenger.setCode(500);
             messenger.setMessage("CSV 파일을 읽는 중 오류가 발생했습니다: " + e.getMessage());
             return "user/list";
         }
+    }
+
+    @PutMapping("/{id}")
+    public String update(Model model) {
+        UserDTO user = new UserDTO();
+
+        Messenger messenger = userService.update(user);
+        model.addAttribute("messenger", messenger);
+        return "user/detail";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(Model model) {
+        String id = "";
+        Messenger messenger = userService.delete(id);
+        model.addAttribute("messenger", messenger);
+        return "user/list";
+    }
+
+    @GetMapping("/all")
+    public String findAll(Model model) {
+        Messenger messenger = userService.findAll();
+        model.addAttribute("messenger", messenger);
+        return "user/list";
     }
 
 }
